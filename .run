@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# This script is used to run the application
+
+g++ -o main ./*.cpp -lSDL2
