@@ -16,10 +16,12 @@ void Window::window_loop() {
             }
         }
 
+        SDL_GetWindowSize(window, &width, &height);
+
         for (int i = 0; i < matrix.size(); i++) {
             for (int j = 0; j < matrix[i].size(); j++) {
-                RGB color = matrix[i][j];
-                SDL_SetRenderDrawColor(renderer, std::get<0>(color), std::get<1>(color), std::get<2>(color), 255);
+                RGBA color = matrix[i][j];
+                SDL_SetRenderDrawColor(renderer, std::get<0>(color), std::get<1>(color), std::get<2>(color), std::get<3>(color));
                 SDL_RenderDrawPoint(renderer, j, i);
             }
         }

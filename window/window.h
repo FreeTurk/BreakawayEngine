@@ -24,6 +24,10 @@ class Window {
     void change_loop(Callback callback);
     void change_start(Callback callback);
     void draw_png(std::string filename, int x, int y, int scale = 1);
+    void draw_line(int x1, int y1, int x2, int y2, RGBA color, int thickness = 1);
+    void draw_triangle(int x1, int y1, int x2, int y2, int x3, int y3, RGBA color, bool filled = true);
+    void draw_rectangle(int x, int y, int width, int height, RGBA color, bool filled = true);
+    void draw_regular_polygon(int x, int y, int radius, int sides, RGBA color, bool filled = true);
 
    private:
     SDL_Renderer* renderer;

@@ -12,6 +12,9 @@ int main() {
     window.draw_png("VirtualBox_logo_64px.png", 0, 0);
     window.draw_png("VirtualBox_logo_64px.png", 64, 0, 2);
 
+    window.draw_rectangle(100, 100, 100, 100, RGBA(255, 0, 0, 255));
+    window.draw_rectangle(200, 200, 100, 100, RGBA(0, 255, 0, 255), false);
+
     // Keep the main thread alive until the user quits
     std::cout
         << "Press 'q' to quit the program." << std::endl;

@@ -9,7 +9,7 @@
 
 void Window::draw_png(std::string filename, int x, int y, int scale = 1) {
     int width, height, channels;
-    unsigned char* data = stbi_load(filename.c_str(), &width, &height, &channels, 3);
+    unsigned char* data = stbi_load(filename.c_str(), &width, &height, &channels, 0);
 
     std::unique_lock<std::mutex> lock(this->window_loop_mutex);
 
@@ -20,17 +20,17 @@ void Window::draw_png(std::string filename, int x, int y, int scale = 1) {
 
     for (Line& l : matrix) {
         if (l.size() < width * scale + x) {
-            l.resize(width * scale + x, RGB(0, 0, 0));
+            l.resize(width * scale + x, RGBA(0, 0, 0, 0));
         }
     }
 
     for (int i = 0; i < height; i++) {
         for (int j = 0; j < width; j++) {
-            int index = (i * width + j) * 3;
+            int index = (i * width + j) * 4;
 
             for (int k = 0; k < scale; k++) {
                 for (int l = 0; l < scale; l++) {
-                    matrix[y + i * scale + k][x + j * scale + l] = RGB(data[index], data[index + 1], data[index + 2]);
+                    matrix[y + i * scale + k][x + j * scale + l] = RGBA(data[index], data[index + 1], data[index + 2], data[index + 3]);
                 }
             }
         }
