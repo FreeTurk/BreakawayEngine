@@ -26,11 +26,13 @@ void Window::show_callback() {
 
     this->event = SDL_Event();
 
+    this->gameplay_start();
+
     this->window_loop();
 }
 
 void Window::show() {
-    window_loop_running = true; 
+    window_loop_running = true;
     window_thread = std::thread(&Window::show_callback, this);
 
     window_thread.detach();

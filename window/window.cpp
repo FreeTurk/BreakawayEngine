@@ -7,8 +7,10 @@
 
 #include "../types.h"
 
-Window::Window() {
-    width = 800;
-    height = 600;
-    title = "Hello, World!";
+Window::Window(int width, int height, std::string title, Callback gameplay_start, Callback gameplay_loop = []() {}) {
+    this->width = width;
+    this->height = height;
+    this->title = title;
+    this->gameplay_loop = gameplay_loop;
+    this->gameplay_start = gameplay_start;
 }

@@ -6,14 +6,9 @@
 #include "window.h"
 
 void Window::window_loop() {
-    Callback callback = []() {
-        std::cout << "Hello, World!" << std::endl;
-    };
-
-    int i = 0;
-
     while (window_loop_running) {
         std::unique_lock<std::mutex> lock(this->window_loop_mutex);
+
         if (SDL_PollEvent(&event)) {
             if (event.type == SDL_QUIT) {
                 window_loop_running = false;
@@ -21,17 +16,20 @@ void Window::window_loop() {
             }
         }
 
-        SDL_SetRenderDrawColor(this->renderer, this->red, 0, 255, 255);
-        SDL_RenderDrawPoint(this->renderer, i, i);
-        SDL_RenderPresent(this->renderer);
+        for (int i = 0; i < matrix.size(); i++) {
+            for (int j = 0; j < matrix[i].size(); j++) {
+                RGB color = matrix[i][j];
+                SDL_SetRenderDrawColor(renderer, std::get<0>(color), std::get<1>(color), std::get<2>(color), 255);
+                SDL_RenderDrawPoint(renderer, j, i);
+            }
+        }
 
-        callback();
+        SDL_RenderPresent(renderer);
 
-        i++;
+        gameplay_loop();
 
         SDL_Delay(10);
     }
 
     std::cout << "Window loop stopped." << std::endl;
-    exit(0);
 }

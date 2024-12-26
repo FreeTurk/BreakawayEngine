@@ -18,12 +18,12 @@ class Window {
     int red = 0;
     Matrix matrix;
 
-    Window();
+    Window(int width, int height, std::string title, Callback gameplay_start, Callback gameplay_loop = []() {});
     void show();
     void stop();
     void change_loop(Callback callback);
     void change_start(Callback callback);
-
+    void draw_png(std::string filename, int x, int y, int scale = 1);
 
    private:
     SDL_Renderer* renderer;
@@ -32,8 +32,8 @@ class Window {
     std::thread window_thread;
     std::mutex window_loop_mutex;
     std::atomic<bool> window_loop_running = false;
-    Callback gameplay_loop;
-    Callback gameplay_start;
+    Callback gameplay_loop = []() {};
+    Callback gameplay_start = []() {};
     void window_loop();
     void show_callback();
 };
