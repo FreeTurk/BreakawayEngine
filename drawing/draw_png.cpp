@@ -7,11 +7,17 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include "../stb/stb_image.h"
 
-void Window::draw_png(std::string filename, int x, int y, int scale = 1) {
+void Window::draw_png(std::string filename, int x, int y, int z, int scale = 1) {
     int width, height, channels;
     unsigned char* data = stbi_load(filename.c_str(), &width, &height, &channels, 0);
 
     std::unique_lock<std::mutex> lock(this->window_loop_mutex);
+
+    if (this->matrix.size() < z + 1) {
+        this->matrix.resize(z + 1, Matrix());
+    }
+
+    Matrix& matrix = this->matrix[z];
 
     // Creating buffer for the image if the matrix vertices are yet to be initialized (to that size)
     if (matrix.size() < height * scale + y) {

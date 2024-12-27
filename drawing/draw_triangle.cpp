@@ -3,10 +3,12 @@
 #include "../types.h"
 #include "../window/window.h"
 
-void Window::draw_triangle(int x1, int y1, int x2, int y2, int x3, int y3, RGBA color, bool filled) {
-    draw_line(x1, y1, x2, y2, color);
-    draw_line(x2, y2, x3, y3, color);
-    draw_line(x3, y3, x1, y1, color);
+void Window::draw_triangle(int x1, int y1, int x2, int y2, int x3, int y3, int z, RGBA color, bool filled) {
+    draw_line(x1, y1, x2, y2, z, color);
+    draw_line(x2, y2, x3, y3, z, color);
+    draw_line(x3, y3, x1, y1, z, color);
+
+    Matrix& matrix = this->matrix[z];
 
     if (filled) {
         std::unique_lock<std::mutex> lock(this->window_loop_mutex);

@@ -9,11 +9,14 @@ int main() {
 
     window.show();
 
-    window.draw_png("VirtualBox_logo_64px.png", 0, 0);
-    window.draw_png("VirtualBox_logo_64px.png", 64, 0, 2);
+    window.draw_png("VirtualBox_logo_64px.png", 0, 0, 2);
+    window.draw_png("VirtualBox_logo_64px.png", 64, 0, 2, 2);
 
-    window.draw_rectangle(100, 100, 100, 100, RGBA(255, 0, 0, 255));
-    window.draw_rectangle(200, 200, 100, 100, RGBA(0, 255, 0, 255), false);
+    window.draw_rectangle(100, 100, 1, 100, 100, RGBA(255, 0, 0, 255));
+    window.draw_rectangle(200, 200, 1, 100, 100, RGBA(0, 255, 0, 255), false);
+
+    window.draw_regular_polygon(400, 300, 1, 100, 6, RGBA(0, 0, 255, 255), true);
+    window.draw_regular_polygon(600, 300, 1, 100, 6, RGBA(255, 255, 0, 255), false);
 
     // Keep the main thread alive until the user quits
     std::cout
